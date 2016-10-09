@@ -49,6 +49,10 @@ int main() {
     const int RED = 1;
     const int YELLOW = 2;
 
+	/* For simplification, I read all the values from a text file rather than the 
+	excel files. Just quicker and simpler. And to simplify the graphing process
+	I exported to multiple files as well */
+
 	/* Initialize the file streams. Add 2 to the end of 
 	file names to switch between datasets */
     ifstream sensorValues("./DataSet1/sensorValues.txt");
