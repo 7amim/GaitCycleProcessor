@@ -66,7 +66,7 @@ Filter::clearGyroBuffer()
     }
 }
 
-Filter::returnValues(double * accelY, double * accelZ,
+Filter::returnValues(double* accelY, double* accelZ,
         double * gyroAvgY, double * gyroSlopeY)      {
 
   accelY = YAvg;
