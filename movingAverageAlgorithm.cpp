@@ -98,7 +98,7 @@ int main() {
     			lines++;
 			}
 			flag = false;
-		} else { // flag == true, need to find next heel strike
+		} else { // flag =/= true, need to find next heel strike
 	    	sensorValues >> a >> b >> time>> c >> accelY >> accelZ >> c >> gyroY >> ignoreLine;
 	    	zArray[lines%10] = accelZ;
 	    	yArray[lines%10] = accelY;

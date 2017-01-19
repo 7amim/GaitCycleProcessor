@@ -24,7 +24,8 @@ enum gait_state {
     };
 */
 
-StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope) {
+// The NULL case is placed before every case becaus it is unkown which phase the walking will begin in
+StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope, bool* semaphore) {
     switch (currState.phase) {
       case NULL:
       case gait_state[5]:
@@ -69,5 +70,6 @@ StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, doubl
         }
         break;
     }
+    semaphore = true;
     return currState;
 }

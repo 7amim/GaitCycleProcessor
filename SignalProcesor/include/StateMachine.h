@@ -4,7 +4,6 @@
 
 class StateMachine
 {
-
     enum gait_state {
         HEEL_STRIKE,
         FOOT_FLAT,

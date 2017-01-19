@@ -11,7 +11,7 @@ class Filter
         void deltaSlope();
         void returnValues((double * accelY, double * accelZ,
                 double * gyroAvgY, double * gyroSlopeY);
-
+        void clearContents();
         int size;
         double ZAvg;
         double YAvg;

@@ -18,13 +18,12 @@ Filter::~Filter()
 
 }
 
-Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int bufferSize)
+Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int* index)
 {
-    for (int i = 0; i < bufferSize; i++) {
-        YAccel[bufferSize%size] = yAccelValue;
-        ZAccel[bufferSize%size] = zAccelValue;
-        YGyroscope[bufferSize%size] = yGyroValue;
-    }
+    YAccel[index%size] = yAccelValue;
+    ZAccel[index%size] = zAccelValue;
+    YGyroscope[index%size] = yGyroValue;
+    index++;
     average();
 }
 
@@ -66,9 +65,14 @@ Filter::clearGyroBuffer()
     }
 }
 
+Filter::clearContents()
+{
+  clearGyroBuffer();
+  clearAccelBuffer();
+}
+
 Filter::returnValues(double* accelY, double* accelZ,
         double * gyroAvgY, double * gyroSlopeY)      {
-
   accelY = YAvg;
   accelZ = ZAvg;
   gyroAvg = gYroAvg;
