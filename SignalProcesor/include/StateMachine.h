@@ -24,7 +24,7 @@ class StateMachine
         const double YTHRESHOLD;
         const double ZTHRESHOLD;
         const double GYROTHRESHOLD;
-        State currState
+        State currState;
         return classify();
 
     protected:

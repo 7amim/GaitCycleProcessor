@@ -6,6 +6,7 @@ StateMachine::StateMachine()
     ZTHRESHOLD = 10000;
     GYROTHRESHOLD = -8000;
     currentState = NULL;
+    previousState = NULL;
 }
 
 StateMachine::~StateMachine()
@@ -70,6 +71,5 @@ StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, doubl
         }
         break;
     }
-    semaphore = true;
     return currState;
 }

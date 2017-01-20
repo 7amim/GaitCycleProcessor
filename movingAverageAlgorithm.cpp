@@ -44,34 +44,34 @@ int main() {
     string a, b;
     int c, d;
     int time = 0;
-    
+
     const int GREEN = 0;
     const int RED = 1;
     const int YELLOW = 2;
 
-	/* For simplification, I read all the values from a text file rather than the 
+	/* For simplification, I read all the values from a text file rather than the
 	excel files. Just quicker and simpler. And to simplify the graphing process
 	I exported to multiple files as well */
 
-	/* Initialize the file streams. Add 2 to the end of 
+	/* Initialize the file streams. Add 2 to the end of
 	file names to switch between datasets */
     ifstream sensorValues("./DataSet1/sensorValues.txt");
-   
+
    	//Writes all the plot values here for line graph
     ofstream plotValues("./DataSet1/plotValues.txt");
-    
+
     //Writes the heel strike coordinates here for Z and Y acceloremeters
     ofstream heelStrikes("./DataSet1/heelStrikes.txt");
-    
+
     //Writes the foot flat coordinates here for the Y-Gyroscope
     ofstream footflat("./DataSet1/footflat.txt");
-    
+
     //Writes the midswing coordinates
     ofstream midSwing("./DataSet1/midSwing.txt");
 
 	//Writes the toeUp coordinates
 	ofstream toeUp("./DataSet1/toeUp.txt");
-	
+
 	//Writes the midStance coordinates
 	ofstream midStance("./DataSet1/midStance.txt");
     /* Used to give the algorithm some buffer time.
@@ -89,7 +89,7 @@ int main() {
     	if (flag == true) {
     		for (int i = 0; i < 10; i++) {
     			yArray[i] = 0;
-				zArray[i] = 0;
+			  	zArray[i] = 0;
     			sensorValues >> a >> b >> time>> c >> accelY >> accelZ >> c >> gyroY >> ignoreLine;
     			if (gyroY >= 0 && gyroY <= 1000) {
     				footflat << lines << " " << gyroY << endl;
@@ -104,7 +104,7 @@ int main() {
 	    	yArray[lines%10] = accelY;
 			double zAvg = 0;
 			double yAvg = 0;
-			
+
 	    	/* Considered a weighted average.
 			The thresholds were concluded through
 			eye-balled data analysis and trial/error*/
@@ -116,7 +116,7 @@ int main() {
 	    			yArray[i] *= 1.5;
 	    		yAvg += yArray[i];
 			}
-			
+
 			if (yAvg/10 < Y_THRESHHOLD && zAvg/10 > Z_THRESHHOLD)  {
 				cout << "Y_AVG IS " << yAvg/10 << " Heel Strike at " << time  << " line " << lines << endl;
 				numSteps++;
@@ -143,6 +143,6 @@ int main() {
 		}
     }
 
-    cout << "Number of lines read is: " << lines << endl;
+  cout << "Number of lines read is: " << lines << endl;
 	cout << "Number of steps is: " << numSteps;
 }
