@@ -1,18 +1,17 @@
 #include "..\include\StateMachine.h"
+#include <cstddef>
 
 StateMachine::StateMachine()
 {
-    YTHRESHOLD = -5000;
-    ZTHRESHOLD = 10000;
-    GYROTHRESHOLD = -8000;
-    currentState = NULL;
-    previousState = NULL;
+    
 }
 
+/*
 StateMachine::~StateMachine()
 {
     //dtor
 }
+*/
 
 /*
 enum gait_state {
@@ -26,7 +25,7 @@ enum gait_state {
 */
 
 // The NULL case is placed before every case becaus it is unkown which phase the walking will begin in
-StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope, bool* semaphore) {
+StateMachine::State StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope) {
     switch (currState.phase) {
       case NULL:
       case gait_state[5]:

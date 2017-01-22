@@ -5,11 +5,13 @@ class Filter
 {
     public:
         Filter();
-        void acquire(int yAccelValue, int zAccelValue, int yGyroValue, int* index);
+        void acquire(int yAccelValue, int zAccelValue, int yGyroValue, int& index);
         void average();
         void deltaSlope();
-        void returnValues(double * accelY, double * accelZ,
-                double * gyroAvgY, double * gyroSlopeY);
+        void returnValues(double& accelY, double& accelZ,
+        double& gyroAvgY, double& gyroSlopeY);
+        void clearAccelBuffer();
+        void clearGyroBuffer();
         void clearContents();
         
 		int size;
