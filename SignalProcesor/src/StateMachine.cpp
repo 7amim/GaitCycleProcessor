@@ -1,5 +1,7 @@
 #include "..\include\StateMachine.h"
 #include <cstddef>
+#include <iostream>
+using namespace std;
 
 StateMachine::StateMachine()
 {
@@ -27,7 +29,8 @@ enum gait_state {
 
 // The NULL case is placed before every case becaus it is unkown which phase the walking will begin in
 StateMachine::State StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope) {
-    switch (currState.phase) {
+    previousState = currState;
+	switch (currState.phase) {
       case NOSTATE:
       case MID_SWING:
         if (YAvg < YTHRESHOLD && ZAvg > ZTHRESHOLD) {
@@ -66,6 +69,7 @@ StateMachine::State StateMachine::classify(int time, double YAvg, double ZAvg, d
         }
         break;
     }
+    // cout << "READ STATE" << endl;
     return currState;
 }
 

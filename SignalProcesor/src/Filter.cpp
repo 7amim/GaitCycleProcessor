@@ -1,16 +1,17 @@
 #include "..\include\Filter.h"
+#include <iostream>
 using namespace std;
 
 Filter::Filter()
 {
-    ZAccel = {0};
-    YAccel = {0};
-    YGyroscope = {0};
+//    ZAccel = {0};
+//    YAccel = {0};
+//    YGyroscope = {0};
     YAvg = 0;
     ZAvg = 0;
     gYroAvg = 0;
     gyroSlope = 0;
-    size = 10;
+  //  SIZE = 10;
 }
 
 //Filter::~Filter()
@@ -18,18 +19,18 @@ Filter::Filter()
 //
 //}
 
-void Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int& index)
+int Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int index)
 {
-    YAccel[index%size] = yAccelValue;
-    ZAccel[index%size] = zAccelValue;
-    YGyroscope[index%size] = yGyroValue;
+    YAccel[index%SIZE] = yAccelValue;
+    ZAccel[index%SIZE] = zAccelValue;
+    YGyroscope[index%SIZE] = yGyroValue;
     index++;
-    average();
+    return index;
 }
 
 void Filter::average()
 {
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < SIZE; i++) {
         if (ZAccel[i] >= 20000)
             ZAccel[i] *= 1.25;
         if (YAccel[i] <= -9000)
@@ -38,15 +39,16 @@ void Filter::average()
         YAvg += YAccel[i];
         gYroAvg += YGyroscope[i];
     }
-    ZAvg /= size;
-    YAvg /= size;
-    gYroAvg /= size;
+    ZAvg /= SIZE;
+//	cout << "ZAvg IS: " << ZAvg << endl;
+    YAvg /= SIZE;
+    gYroAvg /= SIZE;
 }
 
 void Filter::deltaSlope()
 {
-    for (int i = 0; i < size; i++) {
-        gyroSlope += YGyroscope[size] = 0;
+    for (int i = 0; i < SIZE; i++) {
+        gyroSlope += YGyroscope[SIZE] = 0;
     }
 }
 

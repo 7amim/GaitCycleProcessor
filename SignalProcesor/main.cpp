@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <ostream>
 #include <cmath>
 #include <limits>
 
@@ -28,6 +29,11 @@ int main () {
   Filter movingAverage;
   StateMachine classifier;
   ifstream sensorValues("../DataSet1/sensorValues.txt");
+  if (!sensorValues) {
+  	cout << "Could not open dataset";
+  } else {
+  	cout << "File opened correctly" << endl;
+  }
 
   // Defining placeholders to read inputs
   string a, b;
@@ -43,12 +49,15 @@ int main () {
 
   while (sensorValues.good()) {
     sensorValues >> a >> b >> time>> c >> accelY >> accelZ >> c >> gyroY >> ignoreLine;
-    movingAverage.acquire(accelY, accelZ, gyroY, index);
+	index = movingAverage.acquire(accelY, accelZ, gyroY, index);
+	movingAverage.average();
     movingAverage.returnValues(accelY, accelZ, gyroY, slope);
     classifier.classify(accelY, accelZ, gyroY, slope, semaphore);
     if (classifier.previousState.phase != classifier.currState.phase) {
-      classifier.previousState = classifier.currState;
-      cout << classifier.toString() << " at line " << index << endl;
+    	numSteps++;
+//      classifier.previousState = classifier.currState;
+        classifier.toString();
+		cout << " at line " << index << endl;
     } // else, do nothing because the current state has not changed yet
   }
   cout << "Number of lines read is: " << index << endl;
