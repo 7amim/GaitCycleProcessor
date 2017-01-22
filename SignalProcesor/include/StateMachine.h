@@ -1,5 +1,7 @@
 #ifndef STATEMACHINE_H
 #define STATEMACHINE_H
+using namespace std;
+#include <string>
 
 class StateMachine
 {
@@ -10,7 +12,7 @@ class StateMachine
         HEEL_OFF,
         TOE_OFF,
         MID_SWING,
-        NULL,
+        NOSTATE,
     };
 
     public:
@@ -24,9 +26,12 @@ class StateMachine
         double YTHRESHOLD = -5000;
 	    double ZTHRESHOLD = 10000;
 	    double GYROTHRESHOLD = -8000;
+	    std::string toString();
+	    
         State currState;
         State previousState;
         State classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope);
+        
 
     protected:
     private:
