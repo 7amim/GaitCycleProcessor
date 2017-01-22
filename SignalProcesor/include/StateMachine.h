@@ -1,7 +1,6 @@
 #ifndef STATEMACHINE_H
 #define STATEMACHINE_H
 
-
 class StateMachine
 {
     enum gait_state {
@@ -25,7 +24,7 @@ class StateMachine
         const double ZTHRESHOLD;
         const double GYROTHRESHOLD;
         State currState;
-        return classify();
+        gait_state classify();
 
     protected:
     private:

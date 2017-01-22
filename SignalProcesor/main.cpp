@@ -1,20 +1,21 @@
+#include "src\Filter.cpp"
+#include "src\StateMachine.cpp"
+
 #include <iostream>
+#include <fstream>
 #include <cmath>
 
-#include 'Filter.h'
-#include 'StateMachine.h'
+using namespace std;
 
-using namespacee std;
-
-template <class charT, class traits>
-inline
-basic_istream<charT,traits>&
-ignoreLine (basic_istream<charT,traits>& stream) {
-    // skip until end-of-line
-    stream.ignore(numeric_limits<int>::max(),stream.widen('\n'));
-    // return stream for concatenation
-    return stream;
-}
+//template <class charT, class traits>
+//inline
+//basic_istream<charT,traits>&
+//ignoreLine (basic_istream<charT,traits>& stream) {
+//    // skip until end-of-line
+//    stream.ignore(numeric_limits<int>::max(),stream.widen('\n'));
+//    // return stream for concatenation
+//    return stream;
+//}
 
 /* Place the sensor reading in this function to clean space
 void signalProcess() {
@@ -27,6 +28,7 @@ int main () {
   StateMachine classifier = new StateMachine();
   ifstream sensorValues("./DataSet1/sensorValues.txt");
 
+  // Defining placeholders to read inputs
   string a, b;
   int c, d;
   double accelZ = 0;
@@ -37,7 +39,6 @@ int main () {
   int numSteps = 0;
 
   while (sensorValues.good()) {
-    movingAverage.wipeContents(semaphore);
     sensorValues >> a >> b >> time>> c >> accelY >> accelZ >> c >> gyroY >> ignoreLine;
     movingAverage.acquire(accelY, accelZ, gyroY, index);
     movingAverage.returnValues(accelY, accelZ, gyroY, slope);

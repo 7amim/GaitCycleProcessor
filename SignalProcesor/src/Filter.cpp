@@ -1,11 +1,11 @@
-#include "Filter.h"
+#include "..\include\Filter.h"
 using namespace std;
 
 Filter::Filter()
 {
-    ZAccel[size] = {0};
-    YAccel[size] = {0};
-    YGyroscope[size] = {0};
+    ZAccel = {0};
+    YAccel = {0};
+    YGyroscope = {0};
     YAvg = 0;
     ZAvg = 0;
     gYroAvg = 0;
@@ -13,12 +13,12 @@ Filter::Filter()
     size = 10;
 }
 
-Filter::~Filter()
-{
+//Filter::~Filter()
+//{
+//
+//}
 
-}
-
-Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int* index)
+void Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int* index)
 {
     YAccel[index%size] = yAccelValue;
     ZAccel[index%size] = zAccelValue;
@@ -27,7 +27,7 @@ Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int* index)
     average();
 }
 
-Filter::average()
+void Filter::average()
 {
     for (int i = 0; i < size; i++) {
         if (ZAccel[i] >= 20000)
@@ -43,14 +43,14 @@ Filter::average()
     gYroAvg /= size;
 }
 
-Filter::deltaSlope()
+void Filter::deltaSlope()
 {
     for (int i = 0; i < size; i++) {
         gyroSlope += YGyroscope[size] = 0;
     }
 }
 
-Filter::clearAccelBuffer()
+void Filter::clearAccelBuffer()
 {
     for (int i = 0; i < 10; i++) {
         ZAccel[i] = 0;
@@ -58,20 +58,22 @@ Filter::clearAccelBuffer()
     }
 }
 
-Filter::clearGyroBuffer()
+void Filter::clearGyroBuffer()
 {
     for (int i = 0; i < 10; i++) {
         YGyroscope[i] = 0;
     }
 }
 
+/*
 Filter::clearContents()
 {
   clearGyroBuffer();
   clearAccelBuffer();
 }
+*/
 
-Filter::returnValues(double* accelY, double* accelZ,
+void Filter::returnValues(double* accelY, double* accelZ,
         double * gyroAvgY, double * gyroSlopeY)      {
   accelY = YAvg;
   accelZ = ZAvg;
