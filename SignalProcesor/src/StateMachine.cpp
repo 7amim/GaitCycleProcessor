@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-#include "StateMachine.h"
-
-StateMachine::StateMachine()
-{
-    YTHRESHOLD = -5000;
-    ZTHRESHOLD = 10000;
-    GYROTHRESHOLD = -8000;
-    currentState = NULL;
-}
-
 #include "..\include\StateMachine.h"
 #include <cstddef>
 #include <iostream>
@@ -19,6 +8,13 @@ StateMachine::StateMachine()
 	currState.phase = gait_state::NOSTATE;
 }
 
+/*
+StateMachine::~StateMachine()
+{
+    //dtor
+}
+*/
+
 
 enum gait_state {
         HEEL_STRIKE,
@@ -27,7 +23,8 @@ enum gait_state {
         HEEL_OFF,
         TOE_OFF,
         MID_SWING,
-    };
+        NOSTATE,
+};
 
 
 // The NULL case is placed before every case becaus it is unkown which phase the walking will begin in
