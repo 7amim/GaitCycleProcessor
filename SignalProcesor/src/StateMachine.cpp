@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "StateMachine.h"
 
 StateMachine::StateMachine()
@@ -8,12 +9,17 @@ StateMachine::StateMachine()
     currentState = NULL;
 }
 
-StateMachine::~StateMachine()
+#include "..\include\StateMachine.h"
+#include <cstddef>
+#include <iostream>
+using namespace std;
+
+StateMachine::StateMachine()
 {
-    //dtor
+	currState.phase = gait_state::NOSTATE;
 }
 
-/*
+
 enum gait_state {
         HEEL_STRIKE,
         FOOT_FLAT,
@@ -22,45 +28,60 @@ enum gait_state {
         TOE_OFF,
         MID_SWING,
     };
-*/
 
-StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope) {
-    switch (currState.phase){
-        case gait_state[5]:
+
+// The NULL case is placed before every case becaus it is unkown which phase the walking will begin in
+StateMachine::State StateMachine::classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope) {
+    previousState = currState;
+	switch (currState.phase) {
+      case NOSTATE:
+      case MID_SWING:
         if (YAvg < YTHRESHOLD && ZAvg > ZTHRESHOLD) {
-            currState.phase = gait_state[0];
+            currState.phase = HEEL_STRIKE;
             currState.time = time;
         }
         break;
-    case gait_state[4]:
+    case TOE_OFF:
         if (gYroAvg <= GYROTHRESHOLD) {
-            currState.phase = gait_state[5];
+            currState.phase = MID_SWING;
             currState.time = time;
         }
         break;
-    case gait_state[3]:
+    case HEEL_OFF:
         if (ZAvg > ZTHRESHOLD){
-            currState.phase = gait_state[4];
+            currState.phase = TOE_OFF;
             currState.time = time;
         }
         break;
-    case gait_state[2]):
+    case MID_STANCE:
         if (gyroSlope >= 100 && gyroSlope <= 300) {
-            currState.phase = gait_state[3];
+            currState.phase = HEEL_OFF;
             currState.time = time;
         }
         break;
-    case gait_state[1]:
+    case FOOT_FLAT:
         if (gyroSlope >= 300) {
-            currState.phase = gait_state[2];
+            currState.phase = MID_STANCE;
             currState.time = time;
         }
         break;
-    case gait_state[0]:
+    case HEEL_STRIKE:
         if (gYroAvg >= -1000 && gYroAvg <= 1000) {
-            currState.phase = gait_state[1];
+            currState.phase = FOOT_FLAT;
             currState.time = time;
         }
         break;
     }
+    // cout << "READ STATE" << endl;
+    return currState;
+}
+
+string StateMachine::toString() {
+	switch (currState.phase) {
+		case HEEL_STRIKE: return "Heel Strike";
+		case FOOT_FLAT: return "Foot flat";
+		case MID_STANCE: return "Midstance";
+		case HEEL_OFF: return "Heel off";
+		case MID_SWING: return "Midswing";
+	}
 }

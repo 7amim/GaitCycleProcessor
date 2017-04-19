@@ -1,56 +1,58 @@
-#include "Filter.h"
+#include "..\include\Filter.h"
+#include <iostream>
 using namespace std;
 
 Filter::Filter()
 {
-    ZAccel[size] = {0};
-    YAccel[size] = {0};
-    YGyroscope[size] = {0};
+//    ZAccel = {0};
+//    YAccel = {0};
+//    YGyroscope = {0};
     YAvg = 0;
     ZAvg = 0;
     gYroAvg = 0;
     gyroSlope = 0;
-    size = 10;
+  //  SIZE = 10;
 }
 
-Filter::~Filter()
-{
+//Filter::~Filter()
+//{
+//
+//}
 
+int Filter::acquire(int yAccelValue, int zAccelValue, int yGyroValue, int index)
+{
+    YAccel[index%SIZE] = yAccelValue;
+    ZAccel[index%SIZE] = zAccelValue;
+    YGyroscope[index%SIZE] = yGyroValue;
+    index++;
+    return index;
 }
 
-Filter::acquire(int zAccelValue, int yAccelValue, int yGyroValue, int bufferSize)
+void Filter::average()
 {
-    for (int i = 0; i < bufferSize; i++) {
-        ZAccel[bufferSize%size] = zAccelValue;
-        YAccel[bufferSize%size] = yAccelValue;
-        YGyroscope[bufferSize%size] = yGyroValue;
-    }
-}
-
-Filter::average()
-{
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < SIZE; i++) {
         if (ZAccel[i] >= 20000)
             ZAccel[i] *= 1.25;
         if (YAccel[i] <= -9000)
             YAccel[i] *= 1.5;
         ZAvg += ZAccel[i];
         YAvg += YAccel[i];
-        gYroAvg += Ygyroscope[i];
+        gYroAvg += YGyroscope[i];
     }
-    ZAvg /= size;
-    YAvg /= size;
-    gYroAvg /= size;
+    ZAvg /= SIZE;
+//	cout << "ZAvg IS: " << ZAvg << endl;
+    YAvg /= SIZE;
+    gYroAvg /= SIZE;
 }
 
-Filter::deltaSlope()
+void Filter::deltaSlope()
 {
-    for (int i = 0; i < size; i++) {
-        gyroSlope += YGyroscope[size] = 0;
+    for (int i = 0; i < SIZE; i++) {
+        gyroSlope += YGyroscope[SIZE] = 0;
     }
 }
 
-Filter::clearAccelBuffer()
+void Filter::clearAccelBuffer()
 {
     for (int i = 0; i < 10; i++) {
         ZAccel[i] = 0;
@@ -58,9 +60,25 @@ Filter::clearAccelBuffer()
     }
 }
 
-Filter::clearGyroBuffer()
+void Filter::clearGyroBuffer()
 {
     for (int i = 0; i < 10; i++) {
         YGyroscope[i] = 0;
     }
+}
+
+/*
+Filter::clearContents()
+{
+  clearGyroBuffer();
+  clearAccelBuffer();
+}
+*/
+
+void Filter::returnValues(double& accelY, double& accelZ,
+        double& gyroAvgY, double& gyroSlopeY)      {
+  accelY = YAvg;
+  accelZ = ZAvg;
+  gyroAvgY = gYroAvg;
+  gyroSlopeY = gyroSlope;
 }

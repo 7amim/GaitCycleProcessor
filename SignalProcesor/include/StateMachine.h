@@ -1,10 +1,10 @@
 #ifndef STATEMACHINE_H
 #define STATEMACHINE_H
-
+using namespace std;
+#include <string>
 
 class StateMachine
 {
-
     enum gait_state {
         HEEL_STRIKE,
         FOOT_FLAT,
@@ -12,21 +12,26 @@ class StateMachine
         HEEL_OFF,
         TOE_OFF,
         MID_SWING,
-    };
-
-    struct State{
-        gait_state phase;
-        double time = 0;
+        NOSTATE,
     };
 
     public:
+    	struct State{
+		    gait_state phase;
+		   	double time = 0;
+		};
+    	
         StateMachine();
         double yGyroRange;
-        const double YTHRESHOLD;
-        const double ZTHRESHOLD;
-        const double GYROTHRESHOLD;
-        State currState
-        void classify();
+        double YTHRESHOLD = -5000;
+	    double ZTHRESHOLD = 10000;
+	    double GYROTHRESHOLD = -8000;
+	    std::string toString();
+	    
+        State currState;
+        State previousState;
+        State classify(int time, double YAvg, double ZAvg, double gYroAvg, double gyroSlope);
+        
 
     protected:
     private:
