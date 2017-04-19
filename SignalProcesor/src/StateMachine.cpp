@@ -5,7 +5,7 @@ using namespace std;
 
 StateMachine::StateMachine()
 {
-//	currState.phase = gait_state::NOSTATE;
+	currState.phase = HEEL_STRIKE;
 }
 
 /*
