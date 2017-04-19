@@ -21,7 +21,6 @@ ignoreLine (basic_istream<charT,traits>& stream) {
 
 /* Place the sensor reading in this function to clean space
 void signalProcess() {
-
 }
 */
 

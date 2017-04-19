@@ -5,7 +5,7 @@ using namespace std;
 
 StateMachine::StateMachine()
 {
-	currState.phase = gait_state::NOSTATE;
+//	currState.phase = gait_state::NOSTATE;
 }
 
 /*
@@ -14,7 +14,6 @@ StateMachine::~StateMachine()
     //dtor
 }
 */
-
 
 enum gait_state {
         HEEL_STRIKE,
