@@ -53,7 +53,7 @@ int main() {
     file names to switch between datasets */
     ifstream sensorValues("./DataSet1/sensorValues.txt");
 
-   	//Writes all the plot values here for line graph
+    // Writes all the plot values here for line graph
     ofstream plotValues("./DataSet1/plotValues.txt");
 
     //Writes the heel strike coordinates here for Z and Y acceloremeters
