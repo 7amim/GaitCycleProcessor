@@ -21,63 +21,63 @@ ignoreLine (basic_istream<charT,traits>& stream) {
 }
 
 int main() {
-    /* For the purposes of the main task, I thought the Z
-    accelerometer and Y accelerometer were the best indicators
-    for when the heel struck */
-    double accelZ = 0;
-    double accelY = 0;
+	/* For the purposes of the main task, I thought the Z
+	accelerometer and Y accelerometer were the best indicators
+	for when the heel struck */
+	double accelZ = 0;
+	double accelY = 0;
 
-    /* Arrays used for a moving average to interpret data*/
-    double zArray[10]= {0};
-    double yArray[10] = {0};
+	/* Arrays used for a moving average to interpret data*/
+	double zArray[10]= {0};
+	double yArray[10] = {0};
 
-    int numSteps = 0;
-    int lines = 0;
+	int numSteps = 0;
+	int lines = 0;
 
-    // After analyzing the data, I thought these were appropiate thresholds for reference
-    const double Z_THRESHHOLD = 10000;
-    const double Y_THRESHHOLD = -5000;
+	// After analyzing the data, I thought these were appropiate thresholds for reference
+	const double Z_THRESHHOLD = 10000;
+	const double Y_THRESHHOLD = -5000;
 
-    double gyroY;
+	double gyroY;
 
-    // Placeholders to handle reading unnecessary values
-    string a, b;
-    int c, d;
-    int time = 0;
+	// Placeholders to handle reading unnecessary values
+	string a, b;
+	int c, d;
+	int time = 0;
 
-    /* For simplification, I read all the values from a text file rather than the
-    excel files. Just quicker and simpler. And to simplify the graphing process
-    I exported to multiple files as well */
+	/* For simplification, I read all the values from a text file rather than the
+	excel files. Just quicker and simpler. And to simplify the graphing process
+	I exported to multiple files as well */
 
-    /* Initialize the file streams. Add 2 to the end of
-    file names to switch between datasets */
-    ifstream sensorValues("./DataSet1/sensorValues.txt");
+	/* Initialize the file streams. Add 2 to the end of
+	file names to switch between datasets */
+	ifstream sensorValues("./DataSet1/sensorValues.txt");
 
-    // Writes all the plot values here for line graph
-    ofstream plotValues("./DataSet1/plotValues.txt");
+	// Writes all the plot values here for line graph
+	ofstream plotValues("./DataSet1/plotValues.txt");
 
-    //Writes the heel strike coordinates here for Z and Y acceloremeters
-    ofstream heelStrikes("./DataSet1/heelStrikes.txt");
+	//Writes the heel strike coordinates here for Z and Y acceloremeters
+	ofstream heelStrikes("./DataSet1/heelStrikes.txt");
 
-    //Writes the foot flat coordinates here for the Y-Gyroscope
-    ofstream footflat("./DataSet1/footflat.txt");
+	//Writes the foot flat coordinates here for the Y-Gyroscope
+	ofstream footflat("./DataSet1/footflat.txt");
 
-    //Writes the midswing coordinates
-    ofstream midSwing("./DataSet1/midSwing.txt");
+	//Writes the midswing coordinates
+	ofstream midSwing("./DataSet1/midSwing.txt");
 
 	//Writes the toeUp coordinates
 	ofstream toeUp("./DataSet1/toeUp.txt");
 
 	//Writes the midStance coordinates
 	ofstream midStance("./DataSet1/midStance.txt");
-    /* Used to give the algorithm some buffer time.
+	/* Used to give the algorithm some buffer time.
 	IF a heel strike is found, this will skip the immediate
 	consecutive values where there the rate of change is
 	mainted, and the heel strike is still going*/
-    bool flag = false;
-    bool flag2 = false;
+	bool flag = false;
+	bool flag2 = false;
 
-    /* The threshold for the length of a heelstrike I used
+	/* The threshold for the length of a heelstrike I used
 	was the value 10 of ten lines. Found via trial and error.
 	Also resets the array values during this period */
 
@@ -100,7 +100,7 @@ int main() {
 	    	yArray[lines%10] = accelY;
 			double zAvg = 0;
 			double yAvg = 0;
-	    	/* Considered a weighted average.
+			/* Considered a weighted average.
 			The thresholds were concluded through
 			eye-balled data analysis and trial/error*/
 			for (int i = 0; i < 10; i++) {
