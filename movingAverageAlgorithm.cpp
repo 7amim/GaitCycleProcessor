@@ -21,9 +21,9 @@ ignoreLine (basic_istream<charT,traits>& stream) {
 }
 
 int main() {
-	/* For the purposes of the main task, I thought the Z
-	accelerometer and Y accelerometer were the best indicators
-	for when the heel struck */
+    /* For the purposes of the main task, I thought the Z
+    accelerometer and Y accelerometer were the best indicators
+    for when the heel struck */
     double accelZ = 0;
     double accelY = 0;
 
@@ -34,23 +34,23 @@ int main() {
     int numSteps = 0;
     int lines = 0;
 
-    //After analyzing the data, I thought these were appropiate thresholds for reference
-	const double Z_THRESHHOLD = 10000;
-	const double Y_THRESHHOLD = -5000;
+    // After analyzing the data, I thought these were appropiate thresholds for reference
+    const double Z_THRESHHOLD = 10000;
+    const double Y_THRESHHOLD = -5000;
 
-	double gyroY;
+    double gyroY;
 
-	//placeholders to handle reading unnecessary values
+    // Placeholders to handle reading unnecessary values
     string a, b;
     int c, d;
     int time = 0;
 
-	/* For simplification, I read all the values from a text file rather than the
-	excel files. Just quicker and simpler. And to simplify the graphing process
-	I exported to multiple files as well */
+    /* For simplification, I read all the values from a text file rather than the
+    excel files. Just quicker and simpler. And to simplify the graphing process
+    I exported to multiple files as well */
 
-	/* Initialize the file streams. Add 2 to the end of
-	file names to switch between datasets */
+    /* Initialize the file streams. Add 2 to the end of
+    file names to switch between datasets */
     ifstream sensorValues("./DataSet1/sensorValues.txt");
 
    	//Writes all the plot values here for line graph
